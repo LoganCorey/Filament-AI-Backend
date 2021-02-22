@@ -4,8 +4,8 @@
   "description": "A data notation RESTful api which allows a user to create and manage text annotations for user-inputted text snippets.",
   "main": "src/index.js",
   "scripts": {
-    "start": "NODE_ENV=development nodemon src/index.js",
-    "start:prod": "NODE_ENV=production nodemon src/index.js",
+    "start": "nodemon src/index.js",
+    "start:prod": "node src/index.js",
     "test": "mocha test/**/*.js --timeout 10000"
   },
   "keywords": [],
