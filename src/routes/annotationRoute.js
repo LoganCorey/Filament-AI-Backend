@@ -1,6 +1,7 @@
 const express = require('express');
 const annotationController = require('../controllers/annotationController');
 const authController = require('../controllers/authController');
+const AppError = require('../lib/appError');
 
 const router = express.Router();
 
@@ -21,5 +22,10 @@ router
 router
   .route('/getbysnippetid/:id')
   .get(authController.protect, annotationController.getAnnotationsBySnippetId);
+
+  router.all('*', (req, res, next) => {
+    next(new AppError(`Can't find ${req.originalUrl}`, 404));
+  });
+  
 
 module.exports = router;
