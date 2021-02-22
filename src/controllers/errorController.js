@@ -51,11 +51,14 @@ const handleDataErrorDB = (err, req) => {
   const message = `Invalid id given.  Please ensure id is a number.`;
   return new AppError(message, 400);
 };
+handleNotFoundError = (err) => {
+  const message = 'Resource could not be found.';
+  return new AppError(message, 404);
+};
+const handleJWTError = (err) => new AppError('Invalid token.  Please login in again!', 401);
+const handleJWTExpiredError = (err) => new AppError('Your token has expired.  Please log in again!', 401);
 
-const handleJWTError = (err) =>
-  new AppError('Invalid token.  Please login in again!', 401);
-const handleJWTExpiredError = (err) =>
-  new AppError('Your token has expired.  Please log in again!', 401);
+const handleUniqueViolationError =(err)=>new AppError('The fields entered are not unique!', 401);
 
 module.exports = (err, req, res, next) => {
   // if not defined internal server error
@@ -69,6 +72,13 @@ module.exports = (err, req, res, next) => {
     // missing fields for post requests
     if (error.name === 'NotNullViolationError') {
       error = handleNullErrorDB(error);
+    }
+    // not found resource
+    if (error.name === 'NotFoundError') {
+      error = handleNotFoundError(error);
+    }
+    if(error.name === 'UniqueViolationError'){
+      error = handleUniqueViolationError(err);
     }
     // incorrect parameter for id in get requests
     if (error.name === 'DataError') {
