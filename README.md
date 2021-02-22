@@ -1,10 +1,10 @@
 # Annotator Back End
-Data annotation is an important activity used to generate the training data and metadata required for machine learning tasks.  Here I have created a simple text annotation tool that allows a user to create and maange text annotations for user-inputed text snippets. This is the backend portion for that tool.
+Data annotation is an important activity used to generate the training data and metadata required for machine learning tasks.  Here I have created a simple text annotation tool that allows a user to create and manage text annotations for user-inputed text snippets. This is the backend portion for that tool.
 
 ## View the App
 You can view the app by navigating to the following url https://gracious-wescoff-b9c656.netlify.app/
 
-## Prerequisites
+## Pre-requisites
 The Annotator backend requires:
 * Node v12+
 * NPM v7+
@@ -77,17 +77,17 @@ As you can see there is some extra data being tracked with these tables that is 
 ## Features
 
 ### Error Handling
-All error handling gets resolved through a global error handler middleware and an AppError class which can be customized to display either an error message and status code or an error with all developer required information to resolve the error.  I use the first scenario (lots of information in development) and the second scenario (message and status code) in production.  The reason this distinction between production and development was made due to the fact that it's a bad idea to reveal the internal workings of the app due to bad actors possibly being able to take that extra knowledge and cause some damage before you can fix the issue.  Additionaly this global error handling mechanism makes it easy to not only resolve errors and display and appropriate message but it also lets error handling code not pollute the api end point making the code easier to work with in the long run.
+All error handling gets resolved through a global error handler middleware and an AppError class which can be customized to display either an error message and status code or an error with all developer required information to resolve the error.  I use the first scenario (lots of information in development) and the second scenario (message and status code) in production.  As a note, error handling in development is more verbose than in production simply to protect it from any possible attacks. Additionaly this global error handling mechanism makes it easy to not only resolve errors and display and appropriate messages, but it also lets error handling code not pollute the api end point making the code easier to work with in the long run.
 
 ### Authentication
 Authentication was done using a jwt and bcrypt.  Once a user signs in the ORM will encrypt the password and store it in the database.  I have create controller functions to protect routes based off of if the user is signed in and if the user is an admin.  This is easily added to routes by adding the middleware I create for both and can be extended based off of the admin flag in the database.
 
 ### Functionality
-At a base level the api can do all the major requirements however I have made every endpoint capable of the CRUD operations
+At a base level the api can do all the major requirements however I have made every endpoint capable of the CRUD operations.
 
 
 ## Testing
-This project was tested using mocha and chai. ALl of the major API end points are tested however more tests can be added for the user route and weird inputs that a user may enter.  In order to execute the tests run the following command:
+This project was tested using mocha and chai. All of the major API end points are tested however, more tests can be added for the rotues in genereal as well as more tests for diverse/unexpected inputs.  In order to execute the tests run the following command:
 ```sh
 $ npm test
 ```
