@@ -69,6 +69,7 @@ module.exports = (err, req, res, next) => {
     sendErrorDev(err, res);
   } else if (process.env.NODE_ENV === 'production') {
     let error = { ...err };
+    error.message = err.message
     // missing fields for post requests
     if (error.name === 'NotNullViolationError') {
       error = handleNullErrorDB(error);
