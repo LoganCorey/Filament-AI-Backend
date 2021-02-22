@@ -1,6 +1,7 @@
 const express = require('express');
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
+const AppError = require('../lib/appError');
 
 const router = express.Router();
 
@@ -39,4 +40,8 @@ router
     authController.restrictToAdmin,
     userController.deleteById
   );
+  router.all('*', (req, res, next) => {
+    next(new AppError(`Can't find ${req.originalUrl}`, 404));
+  });
+
 module.exports = router;
