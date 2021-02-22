@@ -76,6 +76,9 @@ As you can see there is some extra data being tracked with these tables that is 
 
 ## Features
 
+#### Annotations
+While a user has the abillity to add annotations to snippets special care needs to be made for words inside of other words.  As an example if a user wishes to annotate 'an' if there is a word such as 'Canada' then should 'an' be highlighted in 'Canada'?  I opted to make this not be annotated meaning that the word has to be solely by itself to be highlighted.
+
 ### Error Handling
 All error handling gets resolved through a global error handler middleware and an AppError class which can be customized to display either an error message and status code or an error with all developer required information to resolve the error.  I use the first scenario (lots of information in development) and the second scenario (message and status code) in production.  As a note, error handling in development is more verbose than in production simply to protect it from any possible attacks. Additionaly this global error handling mechanism makes it easy to not only resolve errors and display and appropriate messages, but it also lets error handling code not pollute the api end point making the code easier to work with in the long run.
 
